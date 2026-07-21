@@ -8,7 +8,7 @@ import * as util from './utils';
 import * as type from './type';
 
 const width = 1280;
-const height = 870;
+const height = 960;
 
 const pieHeight = 200 * 1.3;
 const pieWidth = pieHeight * 2;
@@ -92,7 +92,7 @@ export const createSvg = (
             0,
             0,
             width,
-            height,
+            850,
             settings,
             isForcedAnimation,
         );
@@ -114,7 +114,7 @@ export const createSvg = (
             svg,
             userInfo,
             40,
-            height - pieHeight - 70,
+            850 - pieHeight - 70,
             pieWidth,
             pieHeight,
             settings,
@@ -123,7 +123,7 @@ export const createSvg = (
 
         const group = svg.append('g');
 
-        const positionYContrib = height - 25;
+        const positionYContrib = height - 40;
 
         // 1. Total Contributions
         const positionXContrib = (width * 1.4) / 10;
