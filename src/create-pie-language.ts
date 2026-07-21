@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 import * as type from './type';
+import * as langIcons from './language-icons';
 
 const OTHER_NAME = 'other';
 const OTHER_COLOR = '#444444';
@@ -63,22 +64,53 @@ export const createPieLanguage = (
         .selectAll(null)
         .data(pieData)
         .enter()
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', (d) => (d.index + offset) * (height / row) - fontSize / 2)
-        .attr('width', fontSize)
-        .attr('height', fontSize)
-        .attr('fill', (d) => d.data.color)
-        .attr('class', 'stroke-bg')
-        .attr('stroke-width', '1px');
-    if (isAnimate) {
-        markers
-            .append('animate')
-            .attr('attributeName', 'fill-opacity')
-            .attr('values', (d, i) => animateOpacity(i))
-            .attr('dur', '3s')
-            .attr('repeatCount', '1');
-    }
+        .append('g')
+        .attr('transform', (d) => {
+            const markerY = (d.index + offset) * (height / row) - fontSize / 2;
+            return `translate(0, ${markerY})`;
+        });
+
+    markers.each(function (d, i) {
+        const el = d3.select(this);
+        const iconInfo = langIcons.getLanguageIcon(d.data.language);
+
+        if (iconInfo) {
+            const scale = fontSize / 24;
+            const iconPath = el
+                .append('path')
+                .attr('d', iconInfo.path)
+                .attr('fill', d.data.color)
+                .attr('transform', `scale(${scale})`);
+
+            if (isAnimate) {
+                iconPath
+                    .append('animate')
+                    .attr('attributeName', 'fill-opacity')
+                    .attr('values', animateOpacity(i))
+                    .attr('dur', '3s')
+                    .attr('repeatCount', '1');
+            }
+        } else {
+            const rectMarker = el
+                .append('rect')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', fontSize)
+                .attr('height', fontSize)
+                .attr('fill', d.data.color)
+                .attr('class', 'stroke-bg')
+                .attr('stroke-width', '1px');
+
+            if (isAnimate) {
+                rectMarker
+                    .append('animate')
+                    .attr('attributeName', 'fill-opacity')
+                    .attr('values', animateOpacity(i))
+                    .attr('dur', '3s')
+                    .attr('repeatCount', '1');
+            }
+        }
+    });
 
     // labels
     const labels = groupLabel
