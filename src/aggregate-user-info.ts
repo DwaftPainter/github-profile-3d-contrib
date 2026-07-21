@@ -28,6 +28,45 @@ const compare = (num1: number, num2: number): number => {
     }
 };
 
+export const calculateStreak = (
+    calendar: Array<type.CalendarInfo>,
+): type.StreakInfo => {
+    let longest = 0;
+    let temp = 0;
+
+    for (let i = 0; i < calendar.length; i++) {
+        if (calendar[i].contributionCount > 0) {
+            temp++;
+            if (temp > longest) {
+                longest = temp;
+            }
+        } else {
+            temp = 0;
+        }
+    }
+
+    let current = 0;
+    const len = calendar.length;
+    if (len > 0) {
+        let startIdx = len - 1;
+        if (calendar[startIdx].contributionCount === 0 && startIdx > 0) {
+            startIdx--;
+        }
+        for (let i = startIdx; i >= 0; i--) {
+            if (calendar[i].contributionCount > 0) {
+                current++;
+            } else {
+                break;
+            }
+        }
+    }
+
+    return {
+        current,
+        longest,
+    };
+};
+
 export const aggregateUserInfo = (
     response: client.ResponseType,
 ): type.UserInfo => {
@@ -68,6 +107,7 @@ export const aggregateUserInfo = (
                 };
             }
         });
+
     const languages: Array<type.LangInfo> = Object.values(
         contributesLanguage,
     ).sort((obj1, obj2) => -compare(obj1.contributions, obj2.contributions));
@@ -78,6 +118,7 @@ export const aggregateUserInfo = (
     const totalStargazerCount = user.repositories.nodes
         .map((node) => node.stargazerCount)
         .reduce((num1, num2) => num1 + num2, 0);
+    const streak = calculateStreak(calendar);
     const userInfo: type.UserInfo = {
         isHalloween:
             user.contributionsCollection.contributionCalendar.isHalloween,
@@ -98,6 +139,7 @@ export const aggregateUserInfo = (
             user.contributionsCollection.totalRepositoryContributions,
         totalForkCount: totalForkCount,
         totalStargazerCount: totalStargazerCount,
+        streak: streak,
     };
     return userInfo;
 };

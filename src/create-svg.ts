@@ -123,9 +123,10 @@ export const createSvg = (
 
         const group = svg.append('g');
 
-        const positionXContrib = (width * 3) / 10;
         const positionYContrib = height - 20;
 
+        // 1. Total Contributions
+        const positionXContrib = (width * 1.8) / 10;
         group
             .append('text')
             .style('font-size', '32px')
@@ -145,12 +146,98 @@ export const createSvg = (
             .attr('x', positionXContrib + 10)
             .attr('y', positionYContrib)
             .attr('text-anchor', 'start')
-            .attr('text-anchor', 'start')
             .text(contribLabel)
             .attr('class', 'fill-fg');
 
-        const positionXStar = (width * 5) / 10;
-        const positionYStar = positionYContrib;
+        // 2. Current Streak
+        const positionXStreak = (width * 3.7) / 10;
+        // Flame icon
+        group
+            .append('g')
+            .attr(
+                'transform',
+                `translate(${positionXStreak - 32}, ${
+                    positionYContrib - 28
+                }), scale(2)`,
+            )
+            .append('path')
+            .attr('fill-rule', 'evenodd')
+            .attr(
+                'd',
+                'M5.05 0C3.81 2.39 2.5 4.75 2.5 7.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5c0-2.02-.91-3.72-2.31-4.88.07.47.11.95.11 1.44 0 2.21-1.79 4-4 4s-4-1.79-4-4c0-.98.35-1.88.95-2.56z',
+            )
+            .attr('class', 'fill-fg');
+
+        const currentStreakStr = util.inertThousandSeparator(
+            userInfo.streak.current,
+        );
+        const currentStreakLabel =
+            settings.l10n?.currentStreak ??
+            (userInfo.streak.current === 1 ? 'day streak' : 'days streak');
+
+        group
+            .append('text')
+            .style('font-size', '32px')
+            .style('font-weight', 'bold')
+            .attr('x', positionXStreak + 6)
+            .attr('y', positionYContrib)
+            .attr('text-anchor', 'start')
+            .text(currentStreakStr)
+            .attr('class', 'fill-strong');
+
+        group
+            .append('text')
+            .style('font-size', '24px')
+            .attr('x', positionXStreak + 14 + currentStreakStr.length * 18)
+            .attr('y', positionYContrib)
+            .attr('text-anchor', 'start')
+            .text(currentStreakLabel)
+            .attr('class', 'fill-fg');
+
+        // 3. Longest Streak
+        const positionXMaxStreak = (width * 6.0) / 10;
+        // Zap icon
+        group
+            .append('g')
+            .attr(
+                'transform',
+                `translate(${positionXMaxStreak - 32}, ${
+                    positionYContrib - 28
+                }), scale(2)`,
+            )
+            .append('path')
+            .attr('fill-rule', 'evenodd')
+            .attr('d', 'M7.5 0L1.5 8.5h5L4.5 15l8.5-8.5h-5L10.5 0z')
+            .attr('class', 'fill-fg');
+
+        const longestStreakStr = util.inertThousandSeparator(
+            userInfo.streak.longest,
+        );
+        const longestStreakLabel =
+            settings.l10n?.longestStreak ??
+            (userInfo.streak.longest === 1 ? 'day max' : 'days max');
+
+        group
+            .append('text')
+            .style('font-size', '32px')
+            .style('font-weight', 'bold')
+            .attr('x', positionXMaxStreak + 6)
+            .attr('y', positionYContrib)
+            .attr('text-anchor', 'start')
+            .text(longestStreakStr)
+            .attr('class', 'fill-strong');
+
+        group
+            .append('text')
+            .style('font-size', '24px')
+            .attr('x', positionXMaxStreak + 14 + longestStreakStr.length * 18)
+            .attr('y', positionYContrib)
+            .attr('text-anchor', 'start')
+            .text(longestStreakLabel)
+            .attr('class', 'fill-fg');
+
+        // 4. Stars
+        const positionXStar = (width * 8.1) / 10;
 
         // icon of star
         group
@@ -158,7 +245,7 @@ export const createSvg = (
             .attr(
                 'transform',
                 `translate(${positionXStar - 32}, ${
-                    positionYStar - 28
+                    positionYContrib - 28
                 }), scale(2)`,
             )
             .append('path')
@@ -174,15 +261,15 @@ export const createSvg = (
             .style('font-size', '32px')
             .style('font-weight', 'bold')
             .attr('x', positionXStar + 10)
-            .attr('y', positionYStar)
+            .attr('y', positionYContrib)
             .attr('text-anchor', 'start')
             .text(util.toScale(userInfo.totalStargazerCount))
             .attr('class', 'fill-fg')
             .append('title')
             .text(userInfo.totalStargazerCount);
 
-        const positionXFork = (width * 6) / 10;
-        const positionYFork = positionYContrib;
+        // 5. Forks
+        const positionXFork = (width * 9.2) / 10;
 
         // icon of fork
         group
@@ -190,7 +277,7 @@ export const createSvg = (
             .attr(
                 'transform',
                 `translate(${positionXFork - 32}, ${
-                    positionYFork - 28
+                    positionYContrib - 28
                 }), scale(2)`,
             )
             .append('path')
@@ -206,7 +293,7 @@ export const createSvg = (
             .style('font-size', '32px')
             .style('font-weight', 'bold')
             .attr('x', positionXFork + 4)
-            .attr('y', positionYFork)
+            .attr('y', positionYContrib)
             .attr('text-anchor', 'start')
             .text(util.toScale(userInfo.totalForkCount))
             .attr('class', 'fill-fg')

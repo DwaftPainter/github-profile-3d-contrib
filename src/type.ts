@@ -10,6 +10,11 @@ export interface LangInfo {
     contributions: number;
 }
 
+export interface StreakInfo {
+    current: number;
+    longest: number;
+}
+
 export interface UserInfo {
     isHalloween: boolean;
     contributionCalendar: Array<CalendarInfo>;
@@ -22,6 +27,7 @@ export interface UserInfo {
     totalRepositoryContributions: number;
     totalForkCount: number;
     totalStargazerCount: number;
+    streak: StreakInfo;
 }
 
 export type ContributionLevel =
@@ -77,6 +83,8 @@ export interface BaseSettings extends RadarContribSettings, PieLangSettings {
         pullreq: string;
         issue: string;
         contrib: string;
+        currentStreak?: string;
+        longestStreak?: string;
     };
 }
 

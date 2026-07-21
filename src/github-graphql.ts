@@ -31,6 +31,13 @@ export type ContributionCalendar = {
     }>;
 };
 
+export type Language = {
+    id: string;
+    name: string;
+    /** "#RRGGBB" */
+    color: string | null;
+};
+
 export type Repositories = {
     edges: Array<{
         cursor: string;
@@ -38,6 +45,13 @@ export type Repositories = {
     nodes: Array<{
         forkCount: number;
         stargazerCount: number;
+        languages?: {
+            totalSize: number;
+            edges: Array<{
+                size: number;
+                node: Language;
+            }>;
+        };
     }>;
 };
 
@@ -129,8 +143,20 @@ export const fetchFirst = async (
                             cursor
                         }
                         nodes {
+                            name    
                             forkCount
                             stargazerCount
+                            languages(first: 100, orderBy: { field: SIZE, direction: DESC }) {
+                                totalSize
+                                edges {
+                                    size
+                                    node {
+                                        id
+                                        name
+                                        color
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -164,6 +190,17 @@ export const fetchNext = async (
                         nodes {
                             forkCount
                             stargazerCount
+                            languages(first: 100, orderBy: { field: SIZE, direction: DESC }) {
+                                totalSize
+                                edges {
+                                    size
+                                    node {
+                                        id
+                                        name
+                                        color
+                                    }
+                                }
+                            }
                         }
                     }
                 }
