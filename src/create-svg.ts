@@ -151,7 +151,7 @@ export const createSvg = (
 
         // 2. Current Streak
         const positionXStreak = (width * 3.7) / 10;
-        // Flame icon
+        // Flame icon (#E25822)
         group
             .append('g')
             .attr(
@@ -165,7 +165,7 @@ export const createSvg = (
                 'd',
                 'm14.125,12.883c.564.566.875,1.317.875,2.117s-.313,1.555-.88,2.121c-1.13,1.135-3.107,1.133-4.241,0-.566-.566-.879-1.319-.879-2.121s.312-1.555.868-2.11l1.788-1.735c.097-.095.223-.142.348-.142s.25.048.347.142l1.774,1.729Zm5.653,7.896c-2.078,2.077-4.841,3.222-7.778,3.222s-5.7-1.145-7.778-3.222C-.067,16.489-.067,9.511,4.222,5.222l3.992-3.688c1.003-.981,2.354-1.533,3.786-1.533s2.783.552,3.807,1.553l3.943,3.642c4.317,4.316,4.317,11.295.028,15.584Zm-2.778-5.778c0-1.336-.521-2.592-1.465-3.535l-.009-.009-1.78-1.734c-.975-.948-2.505-.95-3.483-.002l-1.798,1.745c-.944.943-1.465,2.199-1.465,3.535s.521,2.592,1.465,3.535c.944.944,2.2,1.465,3.535,1.465s2.592-.521,3.535-1.465c.944-.943,1.465-2.199,1.465-3.535Z',
             )
-            .attr('class', 'fill-fg');
+            .attr('fill', '#E25822');
 
         const currentStreakStr = util.inertThousandSeparator(
             userInfo.streak.current,
@@ -195,19 +195,21 @@ export const createSvg = (
 
         // 3. Longest Streak
         const positionXMaxStreak = (width * 6.0) / 10;
-        // Zap icon
+        // Days Max Lightning Icon (#F5A623)
         group
             .append('g')
             .attr(
                 'transform',
-                `translate(${positionXMaxStreak - 32}, ${
+                `translate(${positionXMaxStreak - 36}, ${
                     positionYContrib - 28
-                }), scale(2)`,
+                }), scale(1.333)`,
             )
             .append('path')
-            .attr('fill-rule', 'evenodd')
-            .attr('d', 'M7.5 0L1.5 8.5h5L4.5 15l8.5-8.5h-5L10.5 0z')
-            .attr('class', 'fill-fg');
+            .attr(
+                'd',
+                'M11.24,24a2.262,2.262,0,0,1-.948-.212,2.18,2.18,0,0,1-1.2-2.622L10.653,16H6.975A3,3,0,0,1,4.1,12.131l3.024-10A2.983,2.983,0,0,1,10,0h3.693a2.6,2.6,0,0,1,2.433,3.511L14.443,8H17a3,3,0,0,1,2.483,4.684l-6.4,10.3A2.2,2.2,0,0,1,11.24,24Z',
+            )
+            .attr('fill', '#F5A623');
 
         const longestStreakStr = util.inertThousandSeparator(
             userInfo.streak.longest,
@@ -238,28 +240,27 @@ export const createSvg = (
         // 4. Stars
         const positionXStar = (width * 8.1) / 10;
 
-        // icon of star
+        // Star Icon (#FFC107)
         group
             .append('g')
             .attr(
                 'transform',
-                `translate(${positionXStar - 32}, ${
+                `translate(${positionXStar - 36}, ${
                     positionYContrib - 28
-                }), scale(2)`,
+                }), scale(1.333)`,
             )
             .append('path')
-            .attr('fill-rule', 'evenodd')
             .attr(
                 'd',
-                'M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z',
+                'M1.327,12.4,4.887,15,3.535,19.187A3.178,3.178,0,0,0,4.719,22.8a3.177,3.177,0,0,0,3.8-.019L12,20.219l3.482,2.559a3.227,3.227,0,0,0,4.983-3.591L19.113,15l3.56-2.6a3.227,3.227,0,0,0-1.9-5.832H16.4L15.073,2.432a3.227,3.227,0,0,0-6.146,0L7.6,6.568H3.231a3.227,3.227,0,0,0-1.9,5.832Z',
             )
-            .attr('class', 'fill-fg');
+            .attr('fill', '#FFC107');
 
         group
             .append('text')
             .style('font-size', '32px')
             .style('font-weight', 'bold')
-            .attr('x', positionXStar + 10)
+            .attr('x', positionXStar + 6)
             .attr('y', positionYContrib)
             .attr('text-anchor', 'start')
             .text(util.toScale(userInfo.totalStargazerCount))
@@ -270,7 +271,7 @@ export const createSvg = (
         // 5. Forks
         const positionXFork = (width * 9.2) / 10;
 
-        // icon of fork
+        // Fork Icon (#4A90E2)
         group
             .append('g')
             .attr(
@@ -285,7 +286,7 @@ export const createSvg = (
                 'd',
                 'M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z',
             )
-            .attr('class', 'fill-fg');
+            .attr('fill', '#4A90E2');
 
         group
             .append('text')
