@@ -126,7 +126,7 @@ export const createSvg = (
         const positionYContrib = height - 40;
 
         // 1. Total Contributions
-        const positionXContrib = (width * 1.4) / 10;
+        const positionXContrib = (width * 1.8) / 10;
         group
             .append('text')
             .style('font-size', '32px')
@@ -150,7 +150,7 @@ export const createSvg = (
             .attr('class', 'fill-fg');
 
         // 2. Current Streak
-        const positionXStreak = (width * 3.1) / 10;
+        const positionXStreak = (width * 3.7) / 10;
         // Flame icon (#E25822)
         group
             .append('g')
@@ -194,7 +194,7 @@ export const createSvg = (
             .attr('class', 'fill-fg');
 
         // 3. Longest Streak
-        const positionXMaxStreak = (width * 4.8) / 10;
+        const positionXMaxStreak = (width * 6.0) / 10;
         // Days Max Lightning Icon (#F5A623)
         group
             .append('g')
@@ -238,7 +238,7 @@ export const createSvg = (
             .attr('class', 'fill-fg');
 
         // 4. Stars
-        const positionXStar = (width * 6.2) / 10;
+        const positionXStar = (width * 8.1) / 10;
 
         // Star Icon (#FFC107)
         group
@@ -269,7 +269,7 @@ export const createSvg = (
             .text(userInfo.totalStargazerCount);
 
         // 5. Forks
-        const positionXFork = (width * 6.9) / 10;
+        const positionXFork = (width * 9.2) / 10;
 
         // Fork Icon (#4A90E2)
         group
