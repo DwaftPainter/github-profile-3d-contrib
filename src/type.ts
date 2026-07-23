@@ -61,6 +61,7 @@ export interface PieLangSettings {
     foregroundColor: string;
 
     growingAnimation?: boolean;
+    langVisualizer?: 'pie' | 'skyscrapers';
 
     fileName?: string;
 }

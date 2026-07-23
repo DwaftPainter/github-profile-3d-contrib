@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import { JSDOM } from 'jsdom';
 import * as contrib from './create-3d-contrib';
 import * as pie from './create-pie-language';
+import * as skyscrapers from './create-skyscrapers';
 import * as radar from './create-radar-contrib';
 import * as colors from './create-css-colors';
 import * as util from './utils';
@@ -109,17 +110,30 @@ export const createSvg = (
             isForcedAnimation,
         );
 
-        // pie chart
-        pie.createPieLanguage(
-            svg,
-            userInfo,
-            40,
-            850 - pieHeight - 70,
-            pieWidth,
-            pieHeight,
-            settings,
-            isForcedAnimation,
-        );
+        // language chart (pie or skyscrapers)
+        if (settings.langVisualizer === 'skyscrapers') {
+            skyscrapers.createSkyscrapers(
+                svg,
+                userInfo,
+                40,
+                850 - pieHeight - 70,
+                pieWidth,
+                pieHeight,
+                settings,
+                isForcedAnimation,
+            );
+        } else {
+            pie.createPieLanguage(
+                svg,
+                userInfo,
+                40,
+                850 - pieHeight - 70,
+                pieWidth,
+                pieHeight,
+                settings,
+                isForcedAnimation,
+            );
+        }
 
         const group = svg.append('g');
 
