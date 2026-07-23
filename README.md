@@ -158,6 +158,8 @@ The profile images are generated at the following paths:
 - `profile-3d-contrib/profile-night-green.svg`
 - `profile-3d-contrib/profile-night-rainbow.svg`
 - `profile-3d-contrib/profile-gitblock.svg`
+- `profile-3d-contrib/profile-cyberpunk.svg`
+- `profile-3d-contrib/profile-matrix.svg`
 
 If you specify the `SETTING_JSON` environment variable without a `fileName` property in the json file, the following image will be generated:
 

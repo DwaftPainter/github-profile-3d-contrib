@@ -29,3 +29,10 @@ export const NightRainbowSettings =
 
 import gitBlockSettings from './settings/GitBlockSettings.json';
 export const GitBlockSettings = gitBlockSettings as type.BitmapPatternSettings;
+
+import cyberpunkSettings from './settings/CyberpunkSettings.json';
+export const CyberpunkSettings = cyberpunkSettings as type.NormalColorSettings;
+
+import matrixSettings from './settings/MatrixSettings.json';
+export const MatrixSettings = matrixSettings as type.NormalColorSettings;
+

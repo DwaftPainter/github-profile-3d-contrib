@@ -108,6 +108,16 @@ export const main = async (): Promise<void> => {
                 'profile-gitblock.svg',
                 create.createSvg(userInfo, template.GitBlockSettings, true),
             );
+
+            f.writeFile(
+                'profile-cyberpunk.svg',
+                create.createSvg(userInfo, template.CyberpunkSettings, true),
+            );
+
+            f.writeFile(
+                'profile-matrix.svg',
+                create.createSvg(userInfo, template.MatrixSettings, true),
+            );
         }
     } catch (error) {
         console.error(error);
